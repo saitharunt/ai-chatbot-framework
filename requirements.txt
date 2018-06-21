@@ -28,3 +28,4 @@ blinker
 h5py
 spacy
 tensorflow
+Cython==0.24.1

@@ -1,0 +1,97 @@
+__label__order_return not happy with my order. i would like to returns
+__label__get_order please tell me about my order
+__label__get_order can i know about my order
+__label__get_order i need information about my order
+__label__order_confirmation did not receive order confirmation
+__label__order_return i wan to return my order
+__label__order_return quality of product not good
+__label__order_return i want to return my order
+__label__order_return_cancel i would like to cancel the return
+__label__get_order i need info about my order
+__label__order_return_cancel can i cancel my order return request
+__label__order_confirmation i have lost order confirmation email
+__label__order_return_cancel i want to cancel my return using rma
+__label__order_cancel your prices are too high. i would like to cancel.
+__label__order_return i sthere a way to return a delivered product
+__label__order_return item had missing components 
+__label__order_return_cancel i would like to cancel recent return on my order
+__label__order_return_cancel how can i cancel order return
+__label__order_cancel would like to cancel my recent order
+__label__order_cancel i accidentally placed this order
+__label__get_order where is my order?
+__label__order_return i am not satisfied with order. i want to return
+__label__order_return_cancel i changed my mind on returning the item
+__label__order_return_cancel do not want to return the item
+__label__order_cancel i changed my mind and i don’t want to return this product
+__label__order_return i have received expired items, i want to initiate return
+__label__get_order how can i know order information
+__label__order_confirmation want order confirmation email
+__label__order_return order return
+__label__order_cancel order cancel
+__label__order_return_cancel i don’t want to return
+__label__order_return items return
+__label__order_return i want to initiate a return
+__label__order_confirmation order email did not come
+__label__order_cancel cancel order
+__label__order_return_cancel how to cancel the return process
+__label__order_confirmation resend confirmation email
+__label__order_cancel want to cancel order
+__label__order_confirmation haven’t received any email after checking out
+__label__order_confirmation no order confirmation email received after checkout
+__label__order_confirmation my confirmation email receipt is missing
+__label__order_return_cancel how to cancel my returns 
+__label__get_order i need help regarding my order
+__label__order_return not adequate
+__label__get_order get order information
+__label__order_return incorrect item received
+__label__order_return different item received
+__label__get_order order related questions
+__label__order_confirmation email not yet received
+__label__order_cancel i want to cancel on my order
+__label__order_return item is different from the image on the website
+__label__order_return instructions of use are missing in the order
+__label__order_confirmation no email yet received
+__label__order_return_cancel cancel returns
+__label__get_order i have question about order
+__label__order_return order late to arrive
+__label__order_return order delivered late
+__label__order_return i changed my mind i want to return order
+__label__order_return damaged items received i would like to return
+__label__order_confirmation i received wrong email after ordering the product
+__label__order_return item not as described on the site
+__label__order_cancel can i cancel my order
+__label__get_order what’s my order status
+__label__order_confirmation resend order receipt email
+__label__order_confirmation haven’t received invoice mail
+__label__get_order how to check order status
+__label__order_cancel cancel recently placed order
+__label__order_return_cancel cancel return on my recent order
+__label__get_order order updates
+__label__order_return order arrived late. i want to return
+__label__order_cancel can i cancel an order
+__label__order_return quality of product is not as expected
+__label__order_return product quality is bad
+__label__order_return_cancel cancel return of my order
+__label__order_cancel i need order cancellation web link
+__label__order_confirmation deleted confirmation email please resend
+__label__order_return received damaged product
+__label__order_return received damaged item
+__label__order_return_cancel cancellation of my return
+__label__order_cancel ordered wrong item
+__label__get_order want to know about recent order
+__label__order_return not happy with received product
+__label__order_confirmation confirmation email failed
+__label__get_order i want to know status of my order
+__label__order_return_cancel cancel an order return process
+__label__order_cancel do you cancel orders
+__label__order_return received wrong product i want to return
+__label__order_cancel cancel recent order
+__label__order_return recalled item
+__label__order_cancel what’s the process to cancel an order
+__label__order_return how to return my order
+__label__order_return order did not meet expectations
+__label__order_return_cancel now i do not want to return
+__label__order_confirmation please resend order confirmation email
+__label__order_cancel placed ordered by accident
+__label__order_return_cancel how can i cancel an order return
+__label__get_order need help with my order

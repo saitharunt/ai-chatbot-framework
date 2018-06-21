@@ -1,0 +1,9 @@
+training_data = "training_data/data.txt"
+model_path = "model/model"
+LOG_FILE_NAME = "intent_detector.log"
+host = '0.0.0.0'
+port = 9000
+cancel_class_keywords = ["cancel", "cancellation"]
+return_class_keywords = ["return", "returns"]
+confirmation_class_keywords = ["confirm", "confirmation"]
+new_classifier = "true"

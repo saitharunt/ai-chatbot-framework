@@ -10,6 +10,8 @@ from app.commons.logger import logger
 from app.commons import build_response
 from app.nlu.entity_extractor import EntityExtractor
 from app.intents.models import Intent
+from app.nlu.classifiers.model_trainer import Classifier
+from app import configuration as config
 
 from app.endpoint.utils import get_synonyms, SilentUndefined, split_sentence, call_api
 
@@ -21,7 +23,7 @@ from app.nlu.classifiers.starspace_intent_classifier import EmbeddingIntentClass
 sentence_classifier = None
 synonyms = None
 entity_extraction = None
-
+classifier = None
 # Request Handler
 @endpoint.route('/v1', methods=['POST'])
 def api():
@@ -91,9 +93,11 @@ def api():
 
             if parameters:
                 # Extract NER entities
-                extracted_parameters = entity_extraction.predict(
-                    intent_id, request_json.get("input"))
-
+                # if config.new_classifier == "false":
+                #     extracted_parameters = entity_extraction.predict(
+                #         intent_id, request_json.get("input"))
+                # else:
+                #     extracted_parameters = []
                 missing_parameters = []
                 result_json["missingParameters"] = []
                 result_json["extractedParameters"] = {}
@@ -106,12 +110,9 @@ def api():
                     })
 
                     if parameter.required:
-                        if parameter.name not in extracted_parameters.keys():
-                            result_json["missingParameters"].append(
+                        result_json["missingParameters"].append(
                                 parameter.name)
-                            missing_parameters.append(parameter)
-
-                result_json["extractedParameters"] = extracted_parameters
+                        missing_parameters.append(parameter)
 
                 if missing_parameters:
                     result_json["complete"] = False
@@ -129,12 +130,12 @@ def api():
                 intent_id = request_json["intent"]["id"]
                 intent = Intent.objects.get(intentId=intent_id)
 
-                extracted_parameter = entity_extraction.replace_synonyms({
-                    request_json.get("currentNode"): request_json.get("input")
-                })
-
-                # replace synonyms for entity values
-                result_json["extractedParameters"].update(extracted_parameter)
+                # if config.new_classifier == "false":
+                #     extracted_parameter = entity_extraction.replace_synonyms({
+                #         request_json.get("currentNode"): request_json.get("input")
+                #     })
+                #     # replace synonyms for entity values
+                #     result_json["extractedParameters"].update(extracted_parameter)
 
                 result_json["missingParameters"].remove(
                     request_json.get("currentNode"))
@@ -205,11 +206,15 @@ def update_model(app, message, **extra):
     :return:
     """
     global sentence_classifier
-
-    sentence_classifier = EmbeddingIntentClassifier.load(app.config["MODELS_DIR"])
-    synonyms = get_synonyms()
-    global entity_extraction
-    entity_extraction = EntityExtractor(synonyms)
+    global classifier
+    if config.new_classifier == "true":
+        classifier = Classifier()
+        classifier.train()
+    else:
+        sentence_classifier = EmbeddingIntentClassifier.load(app.config["MODELS_DIR"])
+        synonyms = get_synonyms()
+        global entity_extraction
+        entity_extraction = EntityExtractor(synonyms)
     app.logger.info("Intent Model updated")
 
 with app.app_context():
@@ -226,7 +231,10 @@ def predict(sentence):
     :return:
     """
     bot = Bot.objects.get(name="default")
-    predicted,intents = sentence_classifier.process(sentence)
+    if config.new_classifier == "true":
+        predicted, intents = classifier.process(sentence)
+    else:
+        predicted, intents = sentence_classifier.process(sentence)
     app.logger.info("predicted intent %s", predicted)
     if predicted["confidence"] < bot.config.get("confidence_threshold", .90):
         return Intent.objects(intentId=app.config["DEFAULT_FALLBACK_INTENT_NAME"]).first().intentId, 1.0,[]

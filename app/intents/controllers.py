@@ -7,10 +7,14 @@ from app.commons import build_response
 from app.intents.models import Intent, Parameter, ApiDetails
 from app.commons.utils import update_document
 
+from app import configuration as config
 
 intents = Blueprint('intents_blueprint', __name__,
                     url_prefix='/intents')
 
+pwd = os.path.dirname(os.path.abspath(os.path.join(__file__, '..', '..')))
+
+filename = pwd + "/" + config.training_data
 
 @intents.route('/', methods=['POST'])
 def create_intent():
@@ -155,8 +159,19 @@ def import_intents():
         abort(400, 'No file part')
     json_file = request.files['file']
     intents = import_json(json_file)
-
-    return build_response.build_json({"num_intents_created": len(intents)})
+    if config.new_classifier == "true":
+        try:
+            training_file = open(filename, "a+")
+            save_data = ""
+            for intent in intents:
+                for example in intent.trainingData:
+                    training_file.write("__label__" + str(intent.intentId) + " " +
+                                        example.get("text").encode('ascii', 'ignore').decode('ascii').lower() + "\n")
+                    save_data = save_data + "__label__" + str(intent.intentId) + " " + example.get("text").encode('ascii', 'ignore').decode('ascii').lower() + "\n"
+            training_file.close()
+        except Exception as e:
+            return build_response.sent_plain_text("Error while opening file %s" % str(e))
+    return build_response.sent_plain_text(save_data)
 
 
 def import_json(json_file):

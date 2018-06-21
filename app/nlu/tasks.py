@@ -3,28 +3,36 @@ from app.nlu.entity_extractor import EntityExtractor
 from app.intents.models import Intent
 
 from app import app
+from app.nlu.classifiers.model_trainer import Classifier
 from app.nlu.classifiers.starspace_intent_classifier import EmbeddingIntentClassifier
 
+from app import configuration as config
 from app import my_signals
 model_updated_signal = my_signals.signal('model-updated')
 
+from app.train.controllers import shuffle_training_data
 def train_models():
     """
     Initiate NER and Intent Classification training
     :return:
     """
     # generate intent classifier training data
+
     intents = Intent.objects
 
     if not intents:
         raise Exception("NO_DATA")
 
+    if config.new_classifier == "true":
+        shuffle_training_data()
+        classifier = Classifier()
+        classifier.train()
     # train intent classifier on all intents
-    train_intent_classifier(intents)
-
-    # train ner model for each Stories
-    for intent in intents:
-        train_all_ner(str(intent.intentId), intent.trainingData)
+    else:
+        train_intent_classifier(intents)
+        # train ner model for each Stories
+        for intent in intents:
+            train_all_ner(str(intent.intentId), intent.trainingData)
 
     model_updated_signal.send(app,message="Training Completed.")
 

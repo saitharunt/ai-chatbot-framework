@@ -59,7 +59,7 @@ export class TrainComponent implements OnInit {
         console.log(data.story)
         this.story = data.story;
 
-    });  
+    });
 
     if (this.story) {
       if (this.story._id && this.story._id.$oid) {
@@ -72,7 +72,7 @@ export class TrainComponent implements OnInit {
         this.entities = result
       }
     )
-    
+
   }
 
   // 123456
@@ -87,13 +87,14 @@ export class TrainComponent implements OnInit {
   }
   // updateValue($event,example_index){
   //   this.trainingData[example_index]["text"]=$event.srcElement.outerText;
-    
+
   // }
 
   addNewExample(){
     this.trainingData.unshift({
       "text":this.newExampleText,
-      "entities":[]
+      "entities":[],
+      "save":"true"
     })
     this.newExampleText = "";
   }
@@ -106,12 +107,12 @@ export class TrainComponent implements OnInit {
     this.trainingData[example_index].entities.splice(entity_index,1)
 
   }
-  
+
   getSelectionInfo():any {
-    let selection = window.getSelection(); 
+    let selection = window.getSelection();
     if (selection.anchorOffset == selection.extentOffset)
       return false;
-      
+
     let result = {
       "value":selection.toString(),
     }
@@ -143,11 +144,11 @@ export class TrainComponent implements OnInit {
   annotate(){
     // snap selection to the word
     this.snapSelectionToWord();
-    let result = this.getSelectionInfo() 
+    let result = this.getSelectionInfo()
     if (result)
       this.selectionInfo = result;
 
-    console.log(this.selectionInfo);  
+    console.log(this.selectionInfo);
   }
 
   updateTrainingData(){
